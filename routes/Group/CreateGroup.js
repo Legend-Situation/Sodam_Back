@@ -1,6 +1,6 @@
 const { Group, GroupMember, Users } = require('../../models');
 const authUtil = require('../../response/authUtil');
-const { nanoid } = require('nanoid');
+import { nanoid } from 'nanoid';
 
 const CreateGroup = async (req, res) => {
 	const { name, startedAt } = req.body;
