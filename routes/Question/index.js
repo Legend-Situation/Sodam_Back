@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { validateToken } = require('../../middlewares/AuthMiddleware.js');
 
+const GetTodayQuestion = require('./GetTodayQuestion.js');
+router.get('/', validateToken, GetTodayQuestion);
+
 const AddQuestion = require('./AddQuestion.js');
 router.post('/', validateToken, AddQuestion);
 
