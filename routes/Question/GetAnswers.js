@@ -16,6 +16,8 @@ const GetAnswers = async (req, res) => {
 			return res.status(404).send(authUtil.successFalse(404, '오늘의 질문 없음'));
 		}
 
+		console.log(question);
+
 		const myAnswer = await DailyAnswer.findOne({
 			where: { userId, groupId, questionId: question.id },
 		});
@@ -46,6 +48,7 @@ const GetAnswers = async (req, res) => {
 		return res.status(200).send(
 			authUtil.successTrue(200, '답변 목록 조회 성공', {
 				question: question.content,
+				questionId: question.id,
 				answers: response,
 			})
 		);
