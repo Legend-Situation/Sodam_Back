@@ -1,4 +1,4 @@
-const { DailyQuestion, DailyAnswer } = require('../../models');
+const { DailyQuestion, DailyAnswer, Point } = require('../../models');
 const authUtil = require('../../response/authUtil');
 
 const AddAnswer = async (req, res) => {
@@ -18,6 +18,24 @@ const AddAnswer = async (req, res) => {
 		if (existing) {
 			return res.status(409).send(authUtil.successFalse(409, '이미 답변했습니다.'));
 		}
+
+		const groupTotalPoint = Point.findOne({
+			where: { groupId },
+		});
+
+		if (!groupTotalPoint) {
+			Point.create({
+				groupId,
+			});
+
+			Point.update({ totalPoints: 10 }, { where: { groupId } });
+		} else {
+			Point.increment({ totalPoints: 10 }, { where: { groupId } });
+		}
+
+		const incrementGroupTotalPoint = Point.findOne({
+			where: { groupId },
+		});
 
 		await DailyAnswer.create({
 			userId,

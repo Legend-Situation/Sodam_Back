@@ -1,4 +1,4 @@
-const { Group, GroupMember, Users } = require('../../models');
+const { Group, GroupMember, Users, Pets, Point } = require('../../models');
 const authUtil = require('../../response/authUtil');
 const { nanoid } = require('nanoid');
 
@@ -30,6 +30,18 @@ const CreateGroup = async (req, res) => {
 		await GroupMember.create({
 			userId,
 			groupId: group.groupId,
+		});
+
+		await Point.create({
+			groupId: group.groupId,
+			totalPoints: 0,
+		});
+
+		await Pets.create({
+			groupId: group.groupId,
+			level: 1,
+			exp: 0,
+			maxExp: 100,
 		});
 
 		return res.status(201).send(
