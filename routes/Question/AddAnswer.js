@@ -23,19 +23,15 @@ const AddAnswer = async (req, res) => {
 			where: { groupId },
 		});
 
-		if (!groupTotalPoint) {
-			Point.create({
-				groupId,
-			});
-
-			Point.update({ totalPoints: 10 }, { where: { groupId } });
-		} else {
-			Point.increment({ totalPoints: 10 }, { where: { groupId } });
-		}
-
-		const incrementGroupTotalPoint = Point.findOne({
+		const point = await Point.findOne({
 			where: { groupId },
 		});
+		console.log(point);
+
+		Point.update(
+			{ totalPoints: point.totalPoints + 10 },
+			{ where: { groupId } }
+		);
 
 		await DailyAnswer.create({
 			userId,
