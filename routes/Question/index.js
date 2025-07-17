@@ -14,6 +14,9 @@ router.post('/answer', validateToken, AddAnswer);
 const GetAnswer = require('./GetAnswers.js');
 router.get('/answer/:groupId', validateToken, GetAnswer);
 
+const EditAnswer = require('./editAnswer.js');
+router.put('/answer', validateToken, EditAnswer);
+
 const GetAnswersByDate = require('./GetAnswersByDate.js');
 router.get('/answer/:groupId/:date', validateToken, GetAnswersByDate);
 

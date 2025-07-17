@@ -37,6 +37,7 @@ const GetAnswers = async (req, res) => {
 		});
 
 		const response = answers.map(a => ({
+			answerId: a.id,
 			userId: a.user.userId,
 			name: a.user.name,
 			profileImg: a.user.profileImg,
@@ -47,6 +48,7 @@ const GetAnswers = async (req, res) => {
 
 		return res.status(200).send(
 			authUtil.successTrue(200, '답변 목록 조회 성공', {
+				questionId: question.id,
 				question: question.content,
 				questionId: question.id,
 				answers: response,
