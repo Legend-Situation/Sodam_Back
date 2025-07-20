@@ -3,7 +3,7 @@ const authUtil = require('../../response/authUtil');
 const { nanoid } = require('nanoid');
 
 const GetGroupPoint = async (req, res) => {
-	const { groupId } = req.body;
+	const { groupId } = req.query;
 
 	if (!groupId) {
 		return res.status(400).send(authUtil.successFalse(400, '필수 값이 누락되었습니다.'));
